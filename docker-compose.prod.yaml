@@ -19,7 +19,7 @@ services:
     image: "memcached:latest"
     container_name: "memcached_spst"
     volumes:
-      - memcached_data
+      - memcached_data:/var/lib/memcached
   postgres:
     image: "postgres:latest"
     container_name: "postgres_db_spst"
