@@ -1,5 +1,5 @@
 # ===== BUILD STAGE =====
-FROM gradle:8.7-jdk24 AS build
+FROM gradle:9-jdk24 AS build
 WORKDIR /app
 
 COPY gradlew .
