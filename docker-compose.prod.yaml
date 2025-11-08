@@ -28,6 +28,6 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: "spst_production"
     volumes:
-      - postgres_data
+      - postgres_data:/var/lib/postgresql/data
 volumes:
   postgres_data:
