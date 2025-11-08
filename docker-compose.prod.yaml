@@ -1,0 +1,27 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+      - memcached
+    environment:
+      TOKEN: ${TOKEN}
+      GMAIL_OAUTH_TOKEN: ${GMAIL_OAUTH_TOKEN}
+      LOG_CHANNEL_ID: "1413449279074336781"
+      MEMCACHED_URL: "localhost:11211"
+      POSTGRES_DB: jdbc:postgresql://postgres:5432/spst_production?user=${POSTGRES_USER}&password=${POSTGRES_PASSWORD}
+      VERIFIED_ROLE_ID: "1424670993187606569"
+      UNVERIFIED_ROLE_ID: "1424679083811278911"
+      CHANNEL_VERIFICATION_ID: "1424994779938422805"
+  memcached:
+    image: "memcached:latest"
+    container_name: "memcached_spst"
+  postgres:
+    image: "postgres:latest"
+    container_name: "postgres_db_spst"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: "spst_production"

@@ -1,0 +1,18 @@
+services:
+  memcached:
+    image: "memcached:latest"
+    container_name: "memcached_spst"
+    ports:
+      - "11211:11211"
+  postgres:
+    image: "postgres:latest"
+    container_name: "postgres_db_spst"
+    environment:
+      POSTGRES_USER: "user"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_DB: "mydatabase"
+    ports:
+      - "5432:5432"
+volumes:
+  redis_data:
+  postgres_data:
