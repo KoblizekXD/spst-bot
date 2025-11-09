@@ -23,11 +23,12 @@ public final class Events {
         Database.addUser(member.getId(), email, code);
         Memcached.getInstance().invalidateCode(member.getId());
         jda.getTextChannelById(Environment.LOG_CHANNEL_ID).sendMessageEmbeds(new EmbedBuilder()
-                        .setFooter(member.getEffectiveName(), member.getAvatarUrl())
+                        .setFooter(member.getEffectiveName(), member.getUser().getAvatarUrl())
                         .setTitle("Uživatel verifikován")
-                        .addField("Uživatel", member.getUser().getAsTag(), false)
+                        .addField("Uživatel", member.getUser().getEffectiveName(), false)
                         .addField("Email", email, false)
                         .addField("Kód", code, false)
+                        .addField("ID uživatele", member.getId(), false)
                         .setColor(Color.GREEN)
                 .build()).queue();
         Guild guild = member.getGuild();
@@ -41,11 +42,12 @@ public final class Events {
     public static void onVerificationEmailSent(JDA jda, Member member, String email, String code) {
         log.info("Verification email sent to user {}.", member.getUser().getAsTag());
         jda.getTextChannelById(Environment.LOG_CHANNEL_ID).sendMessageEmbeds(new EmbedBuilder()
-                        .setFooter(member.getEffectiveName(), member.getAvatarUrl())
+                        .setFooter(member.getEffectiveName(), member.getUser().getAvatarUrl())
                         .setTitle("Odeslán verifikační email")
-                        .addField("Uživatel", member.getUser().getAsTag(), false)
+                        .addField("Uživatel", member.getUser().getEffectiveName(), false)
                         .addField("Email", email, false)
                         .addField("Kód", code, false)
+                        .addField("ID uživatele", member.getId(), false)
                         .setColor(Color.BLUE)
                 .build()).queue();
     }
@@ -53,9 +55,10 @@ public final class Events {
     public static void onUnsuccessfulEmailSent(JDA jda, Member member, String email, String reason) {
         log.info("Failed to send verification email to user {}.", member.getUser().getAsTag());
         jda.getTextChannelById(Environment.LOG_CHANNEL_ID).sendMessageEmbeds(new EmbedBuilder()
-                        .setFooter(member.getEffectiveName(), member.getAvatarUrl())
+                        .setFooter(member.getEffectiveName(), member.getUser().getAvatarUrl())
                         .setTitle("Chyba při odesílání verifikačního emailu")
-                        .addField("Uživatel", member.getUser().getAsTag(), false)
+                        .addField("Uživatel", member.getUser().getEffectiveName(), false)
+                        .addField("ID uživatele", member.getId(), false)
                         .addField("Email", email, false)
                         .addField("Důvod", reason, false)
                         .setColor(Color.RED)

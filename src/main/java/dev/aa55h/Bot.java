@@ -28,6 +28,8 @@ public class Bot extends ListenerAdapter {
     }
     
     public static void main(String[] args) throws InterruptedException {
+        checkEnv();
+        
         Database.connect();
         JDA api = JDABuilder.createDefault(Environment.TOKEN)
                 .enableIntents(GatewayIntent.GUILD_MEMBERS)
@@ -41,7 +43,7 @@ public class Bot extends ListenerAdapter {
                 new UnverifyCommand(api),
                 new FixRolesCommand(api),
                 new WhoIsCommand(api),
-                new ManualVerify(api)
+                new ManualVerifyCommand(api)
         };
         
         api.addEventListener(new Bot(commands, api));
