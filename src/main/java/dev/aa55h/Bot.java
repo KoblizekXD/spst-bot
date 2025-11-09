@@ -36,7 +36,8 @@ public class Bot extends ListenerAdapter {
                 new CodeCommand(api),
                 new UnverifyCommand(api),
                 new FixRolesCommand(api),
-                new WhoIsCommand(api)
+                new WhoIsCommand(api),
+                new ManualVerify(api)
         };
         
         api.addEventListener(new Bot(commands, api));
