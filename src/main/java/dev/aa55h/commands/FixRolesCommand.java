@@ -37,7 +37,7 @@ public class FixRolesCommand extends AbstractCommand {
         for (Member member : serverVerified) {
             if (!dbVerified.contains(member.getId())) {
                 event.getGuild().removeRoleFromMember(member, event.getGuild().getRoleById(Environment.VERIFIED_ROLE_ID)).queue();
-                event.getGuild().addRoleToMember(member, event.getGuild().getRoleById(Environment.UNVERIFIED_ROLE_ID));
+                event.getGuild().addRoleToMember(member, event.getGuild().getRoleById(Environment.UNVERIFIED_ROLE_ID)).queue();
                 count++;
             }
         }
