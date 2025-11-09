@@ -496,7 +496,7 @@ public class VerifyCommand extends AbstractCommand {
 
     private boolean isBlocked(String email) {
         for (String id : blocked) {
-            if (id.equals(email)) {
+            if (id.equalsIgnoreCase(email)) {
                 return true;
             }
         }
