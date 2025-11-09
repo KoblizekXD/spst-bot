@@ -45,7 +45,10 @@ public class Bot extends ListenerAdapter {
         };
         
         api.addEventListener(new Bot(commands, api));
-        api.updateCommands().addCommands(Arrays.stream(commands).map(AbstractCommand::create).toList()).queue();
+        api.getGuildChannelById(Environment.CHANNEL_VERIFICATION_ID)
+                .getGuild()
+                .updateCommands()
+                .addCommands(Arrays.stream(commands).map(AbstractCommand::create).toList()).queue();
     }
 
     @Override
