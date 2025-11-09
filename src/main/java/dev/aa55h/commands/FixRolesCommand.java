@@ -55,23 +55,24 @@ public class FixRolesCommand extends AbstractCommand {
             return;
         }
         
-        List<Member> serverVerified = guild.getMembersWithRoles(verifiedRole);
-        Set<String> dbVerified = new HashSet<>(Database.getAll());
+        guild.findMembersWithRoles(verifiedRole).onSuccess(serverVerified -> {
+            Set<String> dbVerified = new HashSet<>(Database.getAll());
 
-        log.info("Fixing roles for {} verified members on server, {} verified in database.",
-                serverVerified.size(), dbVerified.size());
+            log.info("Fixing roles for {} verified members on server, {} verified in database.",
+                    serverVerified.size(), dbVerified.size());
 
-        int count = 0;
-        for (Member member : serverVerified) {
-            if (!dbVerified.contains(member.getUser().getId())) {
-                guild.removeRoleFromMember(member, verifiedRole)
-                        .and(guild.addRoleToMember(member, unverifiedRole))
-                        .queue();
-                count++;
+            int count = 0;
+            for (Member member : serverVerified) {
+                if (!dbVerified.contains(member.getUser().getId())) {
+                    guild.removeRoleFromMember(member, verifiedRole)
+                            .and(guild.addRoleToMember(member, unverifiedRole))
+                            .queue();
+                    count++;
+                }
             }
-        }
 
-        event.getHook().sendMessage("Opraveny role pro " + count + " členů.").queue();
+            event.getHook().sendMessage("Opraveny role pro " + count + " členů.").queue();
+        });
     }
 
 }
