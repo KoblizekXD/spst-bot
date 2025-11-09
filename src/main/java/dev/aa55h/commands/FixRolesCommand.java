@@ -54,8 +54,8 @@ public class FixRolesCommand extends AbstractCommand {
             event.getHook().sendMessage("Required roles were not found on this server.").queue();
             return;
         }
-
-        List<Member> serverVerified = guild.findMembersWithRoles(verifiedRole).get();
+        
+        List<Member> serverVerified = guild.getMembersWithRoles(verifiedRole);
         Set<String> dbVerified = new HashSet<>(Database.getAll());
 
         log.info("Fixing roles for {} verified members on server, {} verified in database.",
